@@ -89,15 +89,22 @@ function endGame () {
 }
 
 function Attacks (type){
-    let maxdamage;
-    let logEvent ;
-    if (type === 'Attack'){
-        maxdamage = ATTTACK_VALUE
-        logEvent = LOG_PLAYER_ATTACK
-    } else {
-        maxdamage = DOUBLE_ATTACK
-        logEvent = LOG_PLAYER_STRONG_ATTACK
-    }
+    /* Using the terinary operator instead of if else in the code */
+
+    let maxdamage = type === 'Attack' ? ATTTACK_VALUE : DOUBLE_ATTACK ;
+    let logEvent = type === 'Attack' ? LOG_PLAYER_ATTACK : LOG_PLAYER_STRONG_ATTACK;
+    
+    /* The below if else code is same as the above terinary operator code to try both we commented it out*/
+
+
+    // if (type === 'Attack'){
+    //     maxdamage = ATTTACK_VALUE
+    //     logEvent = LOG_PLAYER_ATTACK
+    // } else {
+    //     maxdamage = DOUBLE_ATTACK
+    //     logEvent = LOG_PLAYER_STRONG_ATTACK
+    // }
+    
     const damage = dealMonsterDamage(maxdamage);
     currentmonsterHealth -= damage;
     showLog(
