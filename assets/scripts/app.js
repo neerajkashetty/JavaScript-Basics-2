@@ -18,6 +18,7 @@ let battleLog = [];
 
 adjustHealthBars(chosenMaxLife);
 
+
 function showLog (ev , val , monhealth , playhealth) {
     let logEntry = {
         event : ev,
@@ -25,21 +26,37 @@ function showLog (ev , val , monhealth , playhealth) {
         monsterhealth : monhealth,
         playerhealth : playhealth 
     }
-    if ( ev === LOG_PLAYER_ATTACK) {
-        logEntry.target = 'Monster' 
+
+    switch (ev) {
+        case LOG_PLAYER_ATTACK:
+            logEntry.target = 'Monster';
+            break;
+        case LOG_PLAYER_STRONG_ATTACK:
+            logEntry.target = 'Monster';
+            break;
+        case LOG_MONSTER_ATTACK:
+            logEntry.target = "Player";   
+            break;
+        case LOG_GAMEOVER:
+            logEntry.target = "Player";        
+            break;
     }
-    else if ( ev === LOG_PLAYER_STRONG_ATTACK ){
-        logEntry.target = "Monster"
-    }
-    else if ( ev === LOG_MONSTER_ATTACK){
-        logEntry.target = "Player"
-    }
-    else if ( ev === LOG_GAMEOVER){
-        logEntry.target = "GameOver"
-    }
-    else if (ev === LOG_HEALED){
-        logEntry.target = "Healed"
-    }
+    
+    // if ( ev === LOG_PLAYER_ATTACK) {
+    //     logEntry.target = 'Monster' 
+    // }
+    // else if ( ev === LOG_PLAYER_STRONG_ATTACK ){
+    //     logEntry.target = "Monster"
+    // }
+    // else if ( ev === LOG_MONSTER_ATTACK){
+    //     logEntry.target = "Player"
+    // }
+    // else if ( ev === LOG_GAMEOVER){
+    //     logEntry.target = "GameOver"
+    // }
+    // else if (ev === LOG_HEALED){
+    //     logEntry.target = "Healed"
+    // }
     battleLog.push(logEntry);
 }
 
@@ -104,7 +121,6 @@ function Attacks (type){
     //     maxdamage = DOUBLE_ATTACK
     //     logEvent = LOG_PLAYER_STRONG_ATTACK
     // }
-    
     const damage = dealMonsterDamage(maxdamage);
     currentmonsterHealth -= damage;
     showLog(
@@ -128,7 +144,7 @@ function HealMee () {
     let heal
     if (playerHealth >= chosenMaxLife){
         alert('Your healed brother')
-        heal = H
+        heal = HEALTH_UP
     } else {
         heal = HEALTH_UP
     }
@@ -138,7 +154,16 @@ function HealMee () {
 }
 
 function log (){
-    console.log(battleLog);
+    // for ( i= 0; i<3; i++ ){
+    //    console.log("Neeraj");
+    // }
+    let i= 0;
+    for( const logEntry of battleLog){
+        console.log(`#${i}`);
+        for(const key in logEntry){
+            console.log(logEntry[key]);
+        }
+    }
 }
 
 healBtn.addEventListener('click', HealMee);
