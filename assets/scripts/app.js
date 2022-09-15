@@ -8,15 +8,25 @@ const LOG_MONSTER_ATTACK = 'MONSTER ATTACK';
 const LOG_HEALED = 'PLAYER HEALED';
 const LOG_GAMEOVER = 'GAMEOVER';
 
-enteredValue = parseInt(prompt('What is the value of Monster and PLayer', 'type'));
+/* Error handling Using the Throw functionality in the javascript */
 
-let chosenMaxLife = enteredValue;
+function ErrorHandling () {
+    enteredValue = parseInt(prompt('What is the value of Monster and PLayer', 'type'));
+    if (isNaN(enteredValue)){
+        throw {Error: 'The Input is not a number'};
+    }
+    return enteredValue;
+}
+let chosenMaxLife = ErrorHandling();
+
 let currentmonsterHealth = chosenMaxLife;
 let playerHealth = chosenMaxLife;
 let BonusLife = true;
 let battleLog = [];
 
 adjustHealthBars(chosenMaxLife);
+
+
 
 
 function showLog (ev , val , monhealth , playhealth) {
@@ -162,7 +172,9 @@ function log (){
         console.log(`#${i}`);
         for(const key in logEntry){
             console.log(logEntry[key]);
+            break;
         }
+        i++;
     }
 }
 
