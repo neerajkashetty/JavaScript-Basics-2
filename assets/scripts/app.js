@@ -26,9 +26,6 @@ let battleLog = [];
 
 adjustHealthBars(chosenMaxLife);
 
-
-
-
 function showLog (ev , val , monhealth , playhealth) {
     let logEntry = {
         event : ev,
